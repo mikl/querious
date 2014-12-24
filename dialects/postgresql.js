@@ -19,7 +19,7 @@ module.exports = function (options) {
    * @param params Parameters to the query, if any.
    * @param callback Node.js-style callback (function(err, response)).
    */
-  self.execute = function (name, params, callback) {
+  self.query = function (name, params, callback) {
     self.loadSql(name, function (err, sql) {
       if (err) { callback(err); }
 
@@ -34,7 +34,7 @@ module.exports = function (options) {
       }
     });
   };
-
+  
   /**
    * Load the SQL query from file.
    *
