@@ -1,6 +1,6 @@
 {
   "name": "querious",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Helper tool to keep your SQL queries organised.",
   "main": "index.js",
   "scripts": {
