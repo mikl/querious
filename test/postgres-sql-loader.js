@@ -39,6 +39,21 @@ lab.experiment('PostgreSQL sql file loading', function () {
     });
   });
 
+  lab.test('it works when loading an empty file', function (done) {
+    var instance = new Querious({
+      cache_sql: true,
+      dialect: 'postgresql',
+      sql_folder: path.resolve(__dirname, 'sql/postgresql')
+    });
+
+    instance.loadSql('empty', function (err, sql) {
+      Code.expect(err).to.not.exist();
+      Code.expect(sql).to.equal("");
+
+      done();
+    });
+  });
+
   lab.test('it fails when loading a non-existing file', function (done) {
     var instance = new Querious({
       dialect: 'postgresql',
