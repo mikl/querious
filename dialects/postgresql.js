@@ -11,7 +11,7 @@ module.exports = function (options) {
   var self = this;
 
   // SQL cache enabled by default.
-  if (typeof(options.cache_sql) === "undefined") {
+  if (typeof options.cache_sql === "undefined") {
     options.cache_sql = true;
   }
 
@@ -73,7 +73,7 @@ module.exports = function (options) {
       }
       else {
         fs.readFile(path.join(options.sql_folder, matches[0]), 'utf-8', function (err, sql) {
-          if (!err && options.cache_sql) {
+          if (sql && options.cache_sql) {
             sqlCache[cacheKey] = sql;
           }
 
