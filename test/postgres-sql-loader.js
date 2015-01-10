@@ -52,4 +52,19 @@ lab.experiment('PostgreSQL sql file loading', function () {
       done();
     });
   });
+
+  lab.test('it fails when encountering ambiguous file names', function (done) {
+    var instance = new Querious({
+      cache_sql: true,
+      dialect: 'postgresql',
+      sql_folder: path.resolve(__dirname, 'sql/postgresql')
+    });
+
+    instance.loadSql('ambiguous', function (err, sql) {
+      Code.expect(err.slice(0, 55)).to.equal("Querious: Ambigious, multiple files matching `ambiguous");
+      Code.expect(sql).to.not.exist();
+
+      done();
+    });
+  });
 });
