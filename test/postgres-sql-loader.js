@@ -24,4 +24,18 @@ lab.experiment('PostgreSQL sql file loading', function () {
       done();
     });
   });
+
+  lab.test('it works with a basic query in a .pgsql file', function (done) {
+    var instance = new Querious({
+      dialect: 'postgresql',
+      sql_folder: path.resolve(__dirname, 'sql/postgresql')
+    });
+
+    instance.loadSql('pi-approximation', function (err, sql) {
+      Code.expect(err).to.not.exist();
+      Code.expect(sql).to.equal("SELECT 22/7;\n");
+
+      done();
+    });
+  });
 });
