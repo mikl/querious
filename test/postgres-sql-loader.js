@@ -38,4 +38,18 @@ lab.experiment('PostgreSQL sql file loading', function () {
       done();
     });
   });
+
+  lab.test('it fails when loading a non-existing file', function (done) {
+    var instance = new Querious({
+      dialect: 'postgresql',
+      sql_folder: path.resolve(__dirname, 'sql/postgresql')
+    });
+
+    instance.loadSql('does-not-exist', function (err, sql) {
+      Code.expect(err.slice(0, 42)).to.equal("Querious: No file matching `does-not-exist");
+      Code.expect(sql).to.not.exist();
+
+      done();
+    });
+  });
 });
