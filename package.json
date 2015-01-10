@@ -22,5 +22,8 @@
   "homepage": "https://github.com/mikl/querious",
   "dependencies": {
     "glob": "^4.3.2"
+  },
+  "devDependencies": {
+    "pre-commit": "0.0.9"
   }
 }
