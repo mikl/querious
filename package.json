@@ -4,7 +4,7 @@
   "description": "Helper tool to keep your SQL queries organised.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lab --lint --threshold 100"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "glob": "^4.3.2"
   },
   "devDependencies": {
+    "lab": "^5.2.0",
     "pre-commit": "0.0.9"
   }
 }
