@@ -4,7 +4,7 @@
   "description": "Helper tool to keep your SQL queries organised.",
   "main": "index.js",
   "scripts": {
-    "test": "lab --lint --threshold 100"
+    "test": "lab --lint --threshold 90"
   },
   "repository": {
     "type": "git",
