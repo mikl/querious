@@ -1,0 +1,11 @@
+{
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "camelcase": 0,
+    "global-strict": [2, "always"],
+    "radix": 1,
+    "quotes": 0
+  }
+}

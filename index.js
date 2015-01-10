@@ -17,4 +17,4 @@ module.exports = function (options) {
   var Dialect = require(path.join(__dirname, 'dialects', options.dialect));
 
   return new Dialect(options);
-}
+};
