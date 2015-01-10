@@ -10,11 +10,9 @@ var sqlCache = {};
 module.exports = function (options) {
   var self = this;
 
-  var config = options || {};
-
   // SQL cache enabled by default.
-  if (typeof(config.cache_sql) === "undefined") {
-    config.cache_sql = true;
+  if (typeof(options.cache_sql) === "undefined") {
+    options.cache_sql = true;
   }
 
   // Find files like {name}.sql or {name}.pgsql.
@@ -33,13 +31,13 @@ module.exports = function (options) {
       if (err) { callback(err); }
 
       if (params) {
-        config.client.query({
+        options.client.query({
           text: sql,
           values: params
         }, callback);
       }
       else {
-        config.client.query(sql, callback);
+        options.client.query(sql, callback);
       }
     });
   };
@@ -51,31 +49,31 @@ module.exports = function (options) {
    * @param callback Node.js-style callback (function(err, sql)).
    */
   self.loadSql = function (name, callback) {
-    var cacheKey = config.sql_folder + ':' + name;
+    var cacheKey = options.sql_folder + ':' + name;
     var filePattern = util.format(self.filePattern, name);
 
-    if (config.cache_sql && sqlCache[cacheKey]) {
+    if (options.cache_sql && sqlCache[cacheKey]) {
       return callback(null, sqlCache[cacheKey]);
     }
 
     // Find a SQL file matching the given name.
     glob(filePattern, {
-      cwd: config.sql_folder,
-      root: config.sql_folder,
+      cwd: options.sql_folder,
+      root: options.sql_folder,
       strict: true,
       nodir: true
     }, function (err, matches) {
       if (err) { return callback(err); }
 
       if (matches.length < 1) {
-        callback('Querious: No file matching `' + filePattern + '` found in folder `' + config.sql_folder + '`.');
+        callback('Querious: No file matching `' + filePattern + '` found in folder `' + options.sql_folder + '`.');
       }
       else if (matches.length > 1) {
-        return callback('Querious: Ambigious, multiple files matching `' + filePattern + '` found in folder `' + config.sql_folder + '`: ' + matches.join(', '));
+        return callback('Querious: Ambigious, multiple files matching `' + filePattern + '` found in folder `' + options.sql_folder + '`: ' + matches.join(', '));
       }
       else {
-        fs.readFile(path.join(config.sql_folder, matches[0]), 'utf-8', function (err, sql) {
-          if (!err && config.cache_sql) {
+        fs.readFile(path.join(options.sql_folder, matches[0]), 'utf-8', function (err, sql) {
+          if (!err && options.cache_sql) {
             sqlCache[cacheKey] = sql;
           }
 
