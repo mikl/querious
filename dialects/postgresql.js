@@ -72,12 +72,12 @@ module.exports = function (options) {
         return callback('Querious: Ambigious, multiple files matching `' + filePattern + '` found in folder `' + options.sql_folder + '`: ' + matches.join(', '));
       }
       else {
-        fs.readFile(path.join(options.sql_folder, matches[0]), 'utf-8', function (err, sql) {
+        fs.readFile(path.join(options.sql_folder, matches[0]), 'utf-8', function (error, sql) {
           if (sql && options.cache_sql) {
             sqlCache[cacheKey] = sql;
           }
 
-          return callback(err, sql);
+          return callback(error, sql);
         });
       }
     });
